@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { TextField, ToggleButton } from "@mui/material";
 import {BsSearch} from 'react-icons/bs'
 import { Button } from "@mui/material";
+
 export default function AddFav() {
   const [packages, setPackage] = useRecoilState(atomData);
   const [count, setCount] = useState(0);
@@ -22,23 +23,25 @@ export default function AddFav() {
     );
     localStorage.setItem("packages", JSON.stringify(packages));
   }, []);
+
 const pack = getPackages()
   const [input, setInput] = useState("");
   let [list, setList] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
+
   let search = [];
    let favs = getFavs();
   function handleSearch(e) {
     setInput(e.target.value);
     search = pack.filter((ele) => {
-      const temp = ele;
-      if (temp.includes(input)) {
-        return temp;
+
+      if (ele.includes(input)) {
+        return ele;
       }
     });
-
+    console.log(search)
     setList(search);
   }
   function handleOnChange(e) {
@@ -81,7 +84,7 @@ const pack = getPackages()
         <h1>Search Packages</h1>
               <div className={styles.searchBar}>
                   <span><BsSearch/></span>&nbsp;
-          <input onChange={handleSearch} type="text" />
+          <input onChange={(e)=>handleSearch(e)} type="text" />
         </div>
             
         <br />
